@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ajouter une categorie
+{% endblock %}
+
+{% block body %}
+    {% if mode %}
+        <h1 class="test">Modifier une categorie</h1>        
+    {% else %}
+        <h1 class="test">Creer une categorie</h1>     
+    {% endif %}
+    
+<div class="container">
+    {{form_start(formCategory)}}
+        {{form_row(formCategory.name, {'label':"Nom", 'attr':{'placeholder':"Entrez le nom la Catégorie"}}) }}
+    {% if mode %}
+        <button type="submit" class="btn btn-outline-success">Mettre à jour la catégorie</button>
+        
+    {% else %}
+        <button type="submit" class="btn btn-outline-info">Creer le produit</button>   
+    {% endif %}
+
+    {{form_end(formCategory)}}
+</div>
+{% endblock %}

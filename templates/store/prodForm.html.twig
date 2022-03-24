@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ajouter un Produits
+{% endblock %}
+
+{% block body %}
+    {% if mode %}
+        <h1 class="test">Modifier un article</h1>        
+    {% else %}
+        <h1 class="test">Creer un article</h1>     
+    {% endif %}
+    
+<div class="container">
+    {{form_start(formProduct)}}
+        {{form_row(formProduct.name, {'label':"Nom", 'attr':{'placeholder':"Entrez le nom du Produit"}}) }}
+        {{form_row(formProduct.category,{'label':"Catégorie"}  ) }}
+        {{form_row(formProduct.quantity,{'label':"Quantité",'attr':{'placeholder':"Entrez la quantité du Produit"}}  ) }}
+        {{form_row(formProduct.price, {'label':"Prix du Produit", 'attr':{'placeholder':"Entrez le prix du Produit"}}) }}
+    {% if mode %}
+        <button type="submit" class="btn btn-outline-success">Mettre à jour le produit</button>
+        
+    {% else %}
+        <button type="submit" class="btn btn-outline-info">Creer le produit</button>   
+    {% endif %}
+
+    {{form_end(formProduct)}}
+</div>
+{% endblock %}

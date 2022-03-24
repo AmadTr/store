@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+    <h1 class="test">Produits</h1>
+
+    {% if app.user %}      
+        <h4>Bienvenue {{app.user.username}}</h4>
+    {% else %}
+        <h4>Anonymous</h4>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Categorie</th>
+                <th scope="col">Quantite</th>
+                <th scope="col">Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for produit in produits %}
+            <tr>
+                <td>{{produit.id}}</td>
+                <td>{{produit.name}}</td>
+                <td>{{produit.category.name}}</td>
+                <td>{{produit.quantity}}</td>
+                <td>{{produit.price}}</td>
+                <td><a class="btn btn-warning" href="{{path('prod-edit',{'id' : produit.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('prod-delete',{'id' : produit.id}) }}">Supprimer le Produit</a></td>
+            </tr>  
+        {% endfor %}
+    </table>
+    <a class="btn btn-primary" href="{{path('prod-new') }}">Ajouter un nouveau produit</a>
+{% endblock %}

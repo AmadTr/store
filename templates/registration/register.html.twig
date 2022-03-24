@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symblog: S'enregistrer{% endblock %}
+
+{% block body %}
+    <h1>Création de mon compte</h1>
+<div class="container">
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email, { label:'Adresse mail'}) }}
+        {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe'}) }}
+        {{ form_row(registrationForm.firstname, { label: 'Entrer votre prénom'}) }}
+        {{ form_row(registrationForm.name, { label: 'Entrer votre nom'}) }}
+        {{ form_row(registrationForm.agreeTerms,{label: "Accepter les conditions d'utilisation"}) }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(registrationForm) }}
+</div>
+{% endblock %}

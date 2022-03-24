@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block body %}
+    <h1 class="test">Catégories</h1>
+
+    {% if app.user %}      
+        <h4>Bienvenue {{app.user.username}}</h4>
+    {% else %}
+        <h4>Anonymous</h4>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for categorie in categories %}
+            <tr>
+                <td>{{categorie.id}}</td>
+                <td>{{categorie.name}}</td>
+                <td><a class="btn btn-warning" href="{{path('cat-edit',{'id' : categorie.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('cat-delete',{'id' : categorie.id}) }}">Supprimer le Produit</a></td>
+            </tr>  
+        {% endfor %}
+    </table>
+    <a class="btn btn-primary" href="{{path('cat-new') }}">Ajouter un nouveau produit</a>
+{% endblock %}
