@@ -1,8 +1,10 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Catégories{% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
     <h1 class="test">Catégories</h1>
 
     {% if app.user %}      
@@ -28,5 +30,10 @@
             </tr>  
         {% endfor %}
     </table>
-    <a class="btn btn-primary" href="{{path('cat-new') }}">Ajouter un nouveau produit</a>
+    <a class="btn btn-primary" href="{{path('cat-new') }}">Ajouter une nouvelle catégorie</a>
+{% else %}
+       <meta http-equiv="refresh" content="0; url= {{path('prods')}}">
+
+{% endif %}
 {% endblock %}
+
