@@ -23,15 +23,13 @@
             <td>{{produit.produit.name}}</td>
             <td>{{produit.produit.price}}</td>
             <td>
-                <a href="{{ path('item_less',{'id': produit.produit.id}) }}" class="btn btn-success"></a>
+                <a href="{{ path('item_less',{'id': produit.produit.id}) }}" class="btn btn-warning">-</a>
                 {{produit.quantite}}
-                <a href="{{ path('item_more',{'id': produit.produit.id}) }}" class="btn btn-success"></a>
+                <a href="{{ path('item_more',{'id': produit.produit.id}) }}" class="btn btn-success">+</a>
             </td>
             <td>{{produit.produit.price * produit.quantite}}</td>
             <td>
-                <a href="{{ path('item_del',{'id': produit.produit.id}) }}" class="btn btn-danger">
-                    <i class="fas fa-trash"></i>
-                </a>
+                <a href="{{ path('item_del',{'id': produit.produit.id}) }}" class="btn btn-danger">supprimer</a>
             </td>
         </tr>
             
@@ -48,9 +46,8 @@
     </div>
 
     {% else %}
-        <h2>Votre Panier est vide</h2>    
+        <h2>Votre Panier est vide</h2>
+        <h3><a href="{{path('prods') }}">Aller a la liste des produits</a></h3>    
     {% endif %}
-    
-    
 
 {% endblock %}

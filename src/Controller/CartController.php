@@ -19,19 +19,26 @@ class CartController extends AbstractController
         $panier = $session->get('panier',[]);
         $tabPanier=[];
 
+        
         foreach ($panier as $id => $quantity) {
-           
+                 
             $tabPanier[] = [
                 'produit' => $produit->find($id),
                 'quantite' => $quantity
             ];
         }
-        $total = 0;
 
+        $total = 0;
+        $totalP = 0;
+        
         foreach ($tabPanier as $value) {
             $totalProd = $value['produit']->getPrice() * $value['quantite'];
             $total += $totalProd;
+            $totalP += $value['quantite'];
+  
         }
+        // dd($totalP);
+        $this->render('/base.html.twig',['itemNav'=>$totalP]);
 
         return $this->render('cart/index.html.twig', [
             'produits' => $tabPanier,
