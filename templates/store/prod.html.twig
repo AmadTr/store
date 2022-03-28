@@ -35,7 +35,7 @@
                         <td><a class="btn btn-warning" href="{{path('prod-edit',{'id' : produit.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('prod-delete',{'id' : produit.id}) }}">Supprimer le Produit</a></td>
                     </tr>
                 {% else %}    
-                        <td><a class="btn btn-primary" href="#">Ajouter au Panier</a></td>
+                        <td><a class="btn btn-primary" href="{{path('cart_add',{'id' : produit.id}) }}">Ajouter au Panier</a></td>
                     </tr>  
                 {% endif %}
         {% endfor %}
@@ -44,5 +44,5 @@
     {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-success" href="{{path('prod-new') }}">Ajouter un nouveau produit</a>
     {% endif %}
-        <a class="btn btn-success" href="#">Aller au Panier</a>
+        <a class="btn btn-success" href="{{path('cart_view') }}">Aller au Panier</a>
 {% endblock %}

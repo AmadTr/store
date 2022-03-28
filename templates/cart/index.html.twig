@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier!{% endblock %}
+
+{% block body %}
+    <h1>Votre Panier</h1>
+
+    <div>
+    {% if produits | length > 0 %}
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produit in produits %}
+        <tr>
+            <td>{{produit.produit.name}}</td>
+            <td>{{produit.produit.price}}</td>
+            <td>
+                <a href="{{ path('item_less',{'id': produit.produit.id}) }}" class="btn btn-success"></a>
+                {{produit.quantite}}
+                <a href="{{ path('item_more',{'id': produit.produit.id}) }}" class="btn btn-success"></a>
+            </td>
+            <td>{{produit.produit.price * produit.quantite}}</td>
+            <td>
+                <a href="{{ path('item_del',{'id': produit.produit.id}) }}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+            
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total : </td>
+            <td>{{total}}</td>
+            <td></td>
+        </tr>
+    </tfoot>
+    </table>
+    </div>
+
+    {% else %}
+        <h2>Votre Panier est vide</h2>    
+    {% endif %}
+    
+    
+
+{% endblock %}
