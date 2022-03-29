@@ -15,22 +15,11 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart_view")
      */
-    public function index(CartService $cartService): Response
-    {
-       $tabPanier = $cartService->index();
-       $total = 0;
-        // $totalP = 0;
-            
-            foreach ($tabPanier as $value) {
-                $totalProd = $value['produit']->getPrice() * $value['quantite'];
-                $total += $totalProd;
-                // $totalP += $value['quantite'];
-            }
-            // $this->render('/base.html.twig',['itemNav'=>$totalP]);
-
+    public function index(CartService $cartService): Response{
+  
         return $this->render('cart/panier.html.twig', [
-            'produits' => $tabPanier,
-            'total'=> $total
+            'produits' => $cartService->index(),
+            'total'=> $cartService->getCartTotal()
         ]);
     }
 
@@ -58,16 +47,9 @@ class CartController extends AbstractController
     /**
     * @Route("/cart/item_more{id}", name="item_more")
     */
-    public function itemMore(int $id, SessionInterface $session){
+    public function itemMore(int $id, CartService $cartService){
 
-        $panier = $session->get('panier',[]);
-
-        if(!empty($panier[$id])){
-            $panier[$id]++;
-        }
-        
-        $session ->set('panier',$panier);
-
+        $cartService->itemMore($id);
         return $this -> redirectToRoute("cart_view");
     }
 
@@ -80,4 +62,6 @@ class CartController extends AbstractController
         $cartService->deleteItem($id);
         return $this -> redirectToRoute("cart_view");
     }
+
+
 }

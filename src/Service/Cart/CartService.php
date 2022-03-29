@@ -46,6 +46,17 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
             return $tabPanier;
         }
 
+        public function getCartTotal() : float {
+
+            $total = 0;
+            
+                  foreach ($this->index() as $value) {
+                    $totalProd = $value['produit']->getPrice() * $value['quantite'];
+                    $total += $totalProd;
+                }
+                return $total;
+        }
+
         public function itemLess(int $id){
 
             $panier = $this->session->get('panier',[]);
@@ -53,18 +64,23 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
             if(!empty($panier[$id]) && $panier[$id] > 1){
                 $panier[$id]--;
             }
-            // else{
-                // $this->redirectToRoute("del_item",$id,$session);
-                // deleteItem($id,$session);
-                // $this->deleteItem($id,$session);
-            // }
+            else{
+                unset($panier[$id]);
+            }
             
             $this->session->set('panier',$panier);    
         }
 
+        public function itemMore(int $id){
 
-
-
+            $panier = $this->session->get('panier',[]);
+    
+            if(!empty($panier[$id])){
+                $panier[$id]++;
+            }
+            
+            $this->session->set('panier',$panier);    
+        }
 
 
         public function deleteItem(int $id){
@@ -79,5 +95,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
     
         }
 
+        public function getCartQty(){
+
+            $total = 0;
+
+            $panier = $this->session->get('panier',[]);
+    
+            foreach ($panier as $id => $qty) {
+                $total += $qty;
+            }
+            return $total;
+        }
 
     }

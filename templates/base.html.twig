@@ -48,11 +48,11 @@
           </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{{path('cart_view') }}">Panier</a>
+                <a class="nav-link" href="{{path('cart_view') }}">Panier
+                <sup class="badge badge-pill bg-danger">{{ getTotalQty() }}</sup></a>
             </li>   
         {% endif %}
 
-        {# {% dump(itemNav) %} #}
             </div>
             </div>
         </nav>

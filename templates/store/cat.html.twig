@@ -6,13 +6,11 @@
 
     <h1 class="test">Catégories</h1>
 
+<div class="container">
     {% if app.user %}      
         <h4>Bienvenue {{app.user.username}}</h4>
-    {% else %}
-        <h4>Anonymous</h4>
     {% endif %}
 
-<div class="container">
     <table class="table">
         <thead>
             <tr>
@@ -30,7 +28,7 @@
             </tr>  
         {% endfor %}
     </table>
-    </div>
     <a class="btn btn-primary" href="{{path('cat-new') }}">Ajouter une nouvelle catégorie</a>
+    </div>
 {% endblock %}
 
