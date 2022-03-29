@@ -11,35 +11,37 @@
         <h4>Anonymous</h4>
     {% endif %}
 
+<div class="container">
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Categorie</th>
-                <th scope="col">Quantite</th>
-                <th scope="col">Prix</th>
+                <th class="text-center" scope="col">#</th>
+                <th class="text-center"scope="col">Nom</th>
+                <th class="text-center"scope="col">Categorie</th>
+                <th class="text-center"scope="col">Quantite</th>
+                <th class="text-center" scope="col">Prix</th>
             </tr>
         </thead>
         <tbody>
 
         {% for produit in produits %}
             <tr>
-                <td>{{produit.id}}</td>
-                <td>{{produit.name}}</td>
-                <td>{{produit.category.name}}</td>
-                <td>{{produit.quantity}}</td>
-                <td>{{produit.price}}</td>
+                <td class="text-center">{{produit.id}}</td>
+                <td class="text-center">{{produit.name}}</td>
+                <td class="text-center">{{produit.category.name}}</td>
+                <td class="text-center">{{produit.quantity}}</td>
+                <td class="text-center">{{produit.price}}</td>
 
                 {% if is_granted('ROLE_ADMIN') %}
-                        <td><a class="btn btn-warning" href="{{path('prod-edit',{'id' : produit.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('prod-delete',{'id' : produit.id}) }}">Supprimer le Produit</a></td>
+                        <td class="text-center"><a class="btn btn-warning" href="{{path('prod-edit',{'id' : produit.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('prod-delete',{'id' : produit.id}) }}">Supprimer le Produit</a></td>
                     </tr>
                 {% else %}    
-                        <td><a class="btn btn-success" href="{{path('cart_add',{'id' : produit.id}) }}">Ajouter au Panier</a></td>
+                        <td class="text-center"><a class="btn btn-success" href="{{path('cart_add',{'id' : produit.id}) }}">Ajouter au Panier</a></td>
                     </tr>  
                 {% endif %}
         {% endfor %}
     </table>
+    </div>
 
     {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-primary" href="{{path('prod-new') }}">Ajouter un nouveau produit</a>

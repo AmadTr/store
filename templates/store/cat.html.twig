@@ -12,23 +12,25 @@
         <h4>Anonymous</h4>
     {% endif %}
 
+<div class="container">
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom</th>
+                <th class="text-center"scope="col">#</th>
+                <th class="text-center"scope="col">Nom</th>
             </tr>
         </thead>
         <tbody>
 
         {% for categorie in categories %}
             <tr>
-                <td>{{categorie.id}}</td>
-                <td>{{categorie.name}}</td>
-                <td><a class="btn btn-warning" href="{{path('cat-edit',{'id' : categorie.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('cat-delete',{'id' : categorie.id}) }}">Supprimer le Produit</a></td>
+                <td class="text-center">{{categorie.id}}</td>
+                <td class="text-center">{{categorie.name}}</td>
+                <td class="text-center"><a class="btn btn-warning" href="{{path('cat-edit',{'id' : categorie.id}) }}">Modifier le Produit</a> <a class="btn btn-danger" href="{{path('cat-delete',{'id' : categorie.id}) }}">Supprimer le Produit</a></td>
             </tr>  
         {% endfor %}
     </table>
+    </div>
     <a class="btn btn-primary" href="{{path('cat-new') }}">Ajouter une nouvelle catégorie</a>
 {% endblock %}
 

@@ -3,32 +3,35 @@
 {% block title %}Votre Panier!{% endblock %}
 
 {% block body %}
-    <h1>Votre Panier</h1>
+    <h1>Panier</h1>
 
-    <div>
+   
     {% if produits | length > 0 %}
-    <table class="table">
+    <div class="container">
+    <table class="table table-hover mt-4">
     <thead>
         <tr>
-            <th>Produit</th>
-            <th>Prix</th>
-            <th>Quantité</th>
-            <th>Total</th>
-            <th></th>
+            <th class="text-center">Produit</th>
+            <th class="text-center">Catégorie</th>
+            <th class="text-center">Prix</th>
+            <th class="text-center">Total</th>
+            <th class="text-center">Quantité</th>
+            <th class="text-center"></th>
         </tr>
     </thead>
     <tbody>
         {% for produit in produits %}
         <tr>
-            <td>{{produit.produit.name}}</td>
-            <td>{{produit.produit.price}}</td>
-            <td>
+            <td class="text-center">{{produit.produit.name}}</td>
+            <td class="text-center">{{produit.produit.category.name}}</td>
+            <td class="text-center">{{produit.produit.price}} €</td>
+            <td class="text-center">{{produit.produit.price * produit.quantite}} €</td>
+            <td class="text-center">
                 <a href="{{ path('item_less',{'id': produit.produit.id}) }}" class="btn btn-warning">-</a>
                 {{produit.quantite}}
                 <a href="{{ path('item_more',{'id': produit.produit.id}) }}" class="btn btn-success">+</a>
             </td>
-            <td>{{produit.produit.price * produit.quantite}}</td>
-            <td>
+            <td class="text-center">
                 <a href="{{ path('item_del',{'id': produit.produit.id}) }}" class="btn btn-danger">supprimer</a>
             </td>
         </tr>
@@ -37,9 +40,9 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="text-right">Total : </td>
-            <td>{{total}}</td>
-            <td></td>
+            <td colspan="2" class="text-right"></td>
+            <td class="text-center">Total : </td>
+            <td class="text-center">{{total}} €</td>
         </tr>
     </tfoot>
     </table>
