@@ -55,7 +55,11 @@
         </tr>
     </tfoot>
     </table>
-        <a class="btn btn-primary" href="#">Commander</a>   
+    {% if app.user %}
+        <a class="btn btn-primary" href="{{ path('order_add', {'user': app.user.id}) }}">Commander</a>
+    {% else %}   
+        <a class="btn btn-primary" href="{{ path('app_login')}}">Connectez vous</a>
+    {% endif %}
 
     </div>
 
