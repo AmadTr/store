@@ -5,4 +5,27 @@
 {% block body %}
 <h1>Liste des commandes</h1>
 
+<table class="table">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Référence cde</th>
+                <th class="text-center"scope="col">Date</th>
+                <th class="text-center"scope="col">Nom client</th>
+                <th class="text-center"scope="col">Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for order in orders %}
+            <tr>
+                <td class="text-center">{{order.refCommande}}</td>
+                <td class="text-center">{{order.createdAt | date("d/m/y")}}</td>
+                <td class="text-center">{{order.user.firstname}}{{' '}}{{order.user.name}}</td>
+                <td class="text-center">{{(order.montant) | number_format(2, ',','.')}}</td>
+                <td><a href="{{path('order_detail', {'order': order.id}) }}" class="btn btn-success">Voir détail</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

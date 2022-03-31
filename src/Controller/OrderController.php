@@ -29,7 +29,7 @@ class OrderController extends AbstractController
     }
 
     /**
-    * @Route("/add/{user}",name="order_add")
+    * @Route("/ad/{user}",name="order_add")
     */
     public function addOrder(User $user, CartService $cart, EntityManagerInterface $em){
 
@@ -51,8 +51,8 @@ class OrderController extends AbstractController
             $orderLine->setOrdernum($order);
             $totalLigne = $line['quantite'] * $line['produit']->getPrice();
             $orderLine->setTotal($totalLigne);
+            $em->persist($orderLine);
         }
-        $em->persist($orderLine);
         $em->flush();
         // dd($order, $orderLine);
 
@@ -60,11 +60,16 @@ class OrderController extends AbstractController
     }
 
 
-
+    /**
+    * @Route("/add/{order}",name="order_detail")
+    */
     public function showCdeDetail(Order $order){
 
+        // dd($order);
+
         return $this->render('order/orderDetail.html.twig',[
-            'ols'=>$order->getOrderlines()
+            'ols'=>$order->getOrderlines(),
+            'order'=>$order
         ]);
     }
 

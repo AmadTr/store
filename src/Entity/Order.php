@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -17,32 +18,38 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("orders:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("orders:read")
      */
     private $refCommande;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("orders:read")
      */
     private $montant;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups("orders:read")
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("orders:read")
      */
     private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="ordernum", orphanRemoval=true)
+     * @Groups("orders:read")
      */
     private $orderLines;
 
