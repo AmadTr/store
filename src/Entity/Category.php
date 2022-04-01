@@ -18,7 +18,6 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("prods:read")
-     * @Groups("orders:read")
      */
     private $id;
 

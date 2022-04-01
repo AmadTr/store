@@ -2,14 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
+// use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-// use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
 
 /**
@@ -61,5 +67,52 @@ class ApiProductController extends AbstractController
         public function order(OrderRepository $orderRepo){
 
         return $this->json($orderRepo->findAll(), 200, [], ['groups'=> 'orders:read']);
+        }
+
+
+        /**
+        * @Route("/product/new", name="api_newProd", methods={"POST"})
+        */
+        public function addProduct(Request $req, SerializerInterface $serializer, CategoryRepository $catRepo, EntityManagerInterface $em,
+         ValidatorInterface $validator){
+
+            try {
+                
+                $jsonData = $req->getContent();
+                $prod = $serializer->deserialize($jsonData, Product::class,'json');
+
+                // on a que le nom de la catégorie
+                // il nous faut l'id de la catégorie pou initialier
+                // l'attribut categoriId du produit
+                // ***********************************************
+                $cat = $prod->getCategory();
+                $getCat = $catRepo->findOneBy(['name'=>$cat->getName()]);
+                // dd($cat, $getCat);
+
+                // mettre a jour la category dans le produit
+                // *****************************************
+                $prod->setCategory($getCat);
+
+                // Avant de persist il faut valider les données
+                $errors = $validator->validate($prod);
+                if(count($errors)){
+                    return $this->json($errors, 400);
+                }
+
+
+                // envoyer a la base de données
+                // ****************************
+                $em->persist($prod);
+                $em->flush();
+
+                // envoyer une reponse au client
+                // ******************************
+                return $this->json($prod, 201, [], ['groups'=> 'prods:read']);
+
+            } catch (NotEncodableValueException $ex) {
+
+                return $this->json(['staut_Error'=>400, 'message'=>$ex->getMessage()], 400);
+                //throw $th;
+            }
         }
 }

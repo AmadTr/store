@@ -21,7 +21,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("orders:read")
      */
     private $id;
 
@@ -33,26 +32,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("orders:read")
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups("orders:read")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("orders:read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("orders:read")
      */
     private $firstname;
 
